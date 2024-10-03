@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "rz-fastapp"
+version = "0.1.0"
+description = ""
+authors = ["Ryan <5668783+ryanzhou7@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "rz_fastapp"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
