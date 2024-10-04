@@ -117,6 +117,36 @@ services:
 - `docker-compose -f dumb-docker-compose.yml -f docker-compose.dev.yml --project-directory . up --build`
 - Reload should work now
 
+## 9. Cleaning up
+
+1. New prod ready Dockerfile
+2. Rename `dumb-docker-compose.yml` -> `docker-compose.yml`
+3. Delete all \*Dockerfile in docker/
+4. Move `docker-compose.dev.yml` to new deploy/ dir
+5. Move relevant dev `docker-compose.yml` configs to `docker-compose.dev.yml`
+6. Add `.dockerignore`
+
+```bash
+# command for deploying in prod
+# should build fine and run but no port is exposed
+docker-compose up --build
+```
+
+If you want to develop in docker with autoreload and exposed ports add `-f deploy/docker-compose.dev.yml` to your docker command.
+Like this:
+
+```bash
+docker-compose -f docker-compose.yml -f deploy/docker-compose.dev.yml --project-directory . up --build
+```
+
+This command exposes the web application on port 8000, mounts current directory and enables autoreload.
+
+But you have to rebuild image every time you modify `poetry.lock` or `pyproject.toml` with this command:
+
+```bash
+docker-compose build
+```
+
 # 3. Publishing
 
 - [publishing-docker-images](https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images)

@@ -1,18 +1,11 @@
 services:
   # Define the 'api' service
   api: &main_app # Build configuration for the Docker image
-    ports:
-      # Exposes application port.
-      - "8000:8000"
     build:
       # Set the build context to the current directory
       context: .
       # Specify the Dockerfile to use for building the image
-      dockerfile: docker/MountVarDockerfile
-
-    volumes:
-      # Adds current directory as volume.
-      - .:/app/src/
+      dockerfile: ./Dockerfile
 
     # Define the image name and tag
     # The tag is determined by the T6_VERSION environment variable, defaulting to 'latest' if not set
@@ -30,6 +23,3 @@ services:
       # Set the HOST environment variable to '0.0.0.0'
       # This typically means the application will listen on all network interfaces
       HOST: 0.0.0.0
-
-      # Enables autoreload.
-      RELOAD: "False"

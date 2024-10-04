@@ -1,6 +1,0 @@
-services:
-  api:
-    # Set environment variables for the container
-    environment:
-      # Enables autoreload.
-      RELOAD: "True"
