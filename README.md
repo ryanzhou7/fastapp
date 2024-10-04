@@ -47,10 +47,18 @@ docker run -it --rm -p 8000:8000 --name rz-fastapp -v $(pwd):/app rz-fastapp:1.1
 poetry add pydantic-settings
 echo '# environment="test"' > .env
 export TAG="1.2"
-docker build -t rz-fastapp:$TAG . -f docker/MountDockerfile
+docker build -t rz-fastapp:$TAG . -f docker/MountVarDockerfile
 docker run -it --rm -p 8000:8000 --name rz-fastapp -v $(pwd):/app rz-fastapp:$TAG
 # uncomment environment="test" in .env
 # stop container and run again
+```
+
+## 6. Refactor to main.py
+
+```bash
+export TAG="1.3"
+docker build -t rz-fastapp:$TAG . -f docker/MountVarDockerfile
+docker run -it --rm -p 8000:8000 --name rz-fastapp -v $(pwd):/app rz-fastapp:$TAG
 ```
 
 # 3. Publishing

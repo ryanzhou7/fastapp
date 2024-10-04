@@ -10,12 +10,11 @@ def get_app() -> FastAPI:
 
     :return: application.
     """
-    return FastAPI(
-        title="t6",
+    app = FastAPI(
+        title="fastapp",
         docs_url="/api/docs",
         redoc_url="/api/redoc",
         openapi_url="/api/openapi.json",
     )
-
-app = get_app()
-app.include_router(health_router)
+    app.include_router(health_router)
+    return app
