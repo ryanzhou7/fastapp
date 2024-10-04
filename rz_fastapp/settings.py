@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     # quantity of workers for uvicorn
     workers_count: int = 1
     # Enable uvicorn reloading
-    reload: bool = True
+    reload: bool = False
 
     # Current environment
     environment: str = "dev"

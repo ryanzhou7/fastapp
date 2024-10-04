@@ -82,8 +82,40 @@ docker-compose -f dumb-docker-compose.yml --project-directory . up --build
 ## 8. Composing docker compose
 
 ```bash
+docker-compose -f dumb-docker-compose.yml --project-directory . up --build
+# reload should still work even though we changed
+settings.py
+  reload: bool = False
+# because this variable is overwritten by
 
+docker-compose.yml
+# Set environment variables for the container
+environment:
+  # Set the HOST environment variable to '0.0.0.0'
+  # This typically means the application will listen on all network interfaces
+  HOST: 0.0.0.0
+
+  # Enables autoreload.
+  RELOAD: "True"
 ```
+
+- Now set the RELOAD: "False"
+- `docker-compose -f dumb-docker-compose.yml --project-directory . up --build`
+- There should be no reload now
+
+- Now adjacent to dumb-docker-compose.yml add `docker-compose.dev.yml`
+
+```yml
+services:
+  api:
+    # Set environment variables for the container
+    environment:
+      # Enables autoreload.
+      RELOAD: "True"
+```
+
+- `docker-compose -f dumb-docker-compose.yml -f docker-compose.dev.yml --project-directory . up --build`
+- Reload should work now
 
 # 3. Publishing
 
