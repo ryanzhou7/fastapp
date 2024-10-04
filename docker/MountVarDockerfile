@@ -3,17 +3,18 @@ FROM python:3.11.4-slim-bullseye
 
 RUN pip install poetry==1.8.2
 
-# Set the working directory in the container
-WORKDIR /app
-
-# Copy only the necessary files for Poetry installation
-COPY pyproject.toml poetry.lock /app/
+# Copying requirements of a project
+COPY pyproject.toml poetry.lock /app/src/
+WORKDIR /app/src
 
 # Install our package
 RUN poetry install --no-root --only main
 
-# Make port 80 available to the world outside this container
+# Make port 8000 available to the world outside this container
 EXPOSE 8000
 
 # Run the FastAPI app with Uvicorn when the container launches
 CMD ["poetry", "run", "python", "-m", "rz_fastapp"]
+
+# Start a bash shell and keep the container running, useful for debugging
+# CMD ["bash", "-c", "tail -f /dev/null"]

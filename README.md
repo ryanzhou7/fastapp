@@ -61,6 +61,30 @@ docker build -t rz-fastapp:$TAG . -f docker/MountVarDockerfile
 docker run -it --rm -p 8000:8000 --name rz-fastapp -v $(pwd):/app rz-fastapp:$TAG
 ```
 
+## 7. Dumb compose
+
+```bash
+
+docker-compose -f dumb-docker-compose.yml --project-directory . up --build
+
+#docker-compose: This is the Docker Compose command-line tool, which is used to define and run multi-container Docker applications.
+
+#-f dumb-docker-compose.yml: The -f flag specifies the path to the Docker Compose file. In this case, it is dumb-docker-compose.yml.
+
+#--project-directory .: The --project-directory flag sets the project directory. The . indicates the current directory. This is useful for setting the context for relative paths in the Docker Compose file.
+
+# up: The up command builds, (re)creates, starts, and attaches to containers for a service. If the containers do not exist, they will be created. If they already exist, they will be started.
+
+#--build: The --build flag forces the rebuilding of the images before starting the containers. This is useful if you have made changes to the Dockerfile or the application code and want to ensure the latest version is used.
+
+```
+
+## 8. Composing docker compose
+
+```bash
+
+```
+
 # 3. Publishing
 
 - [publishing-docker-images](https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images)
