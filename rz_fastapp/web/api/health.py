@@ -1,5 +1,7 @@
 from fastapi.routing import APIRouter
 
+from rz_fastapp.settings import settings
+
 router = APIRouter()
 
 @router.get("/health")
@@ -9,4 +11,5 @@ def health_check() -> None:
 
     It returns 200 if the project is healthy.
     """
-    return {"message": "Hello World"}
+    
+    return {"message": f"Hello {settings.environment}"}

@@ -9,6 +9,7 @@ packages = [{include = "rz_fastapp"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 fastapi = {extras = ["standard"], version = "^0.115.0"}
+pydantic-settings = "^2.5.2"
 
 
 [build-system]

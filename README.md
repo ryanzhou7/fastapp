@@ -39,6 +39,20 @@ docker run -it --rm -p 8000:8000 --name rz-fastapp -v $(pwd):/app rz-fastapp:1.1
 
 ## 4. Router refactor
 
+- Refactor to separate router like [tutorial](https://fastapi.tiangolo.com/tutorial/bigger-applications/)
+
+## 5. Add pydantic-settings
+
+```bash
+poetry add pydantic-settings
+echo '# environment="test"' > .env
+export TAG="1.2"
+docker build -t rz-fastapp:$TAG . -f docker/MountDockerfile
+docker run -it --rm -p 8000:8000 --name rz-fastapp -v $(pwd):/app rz-fastapp:$TAG
+# uncomment environment="test" in .env
+# stop container and run again
+```
+
 # 3. Publishing
 
 - [publishing-docker-images](https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images)
