@@ -1,6 +1,6 @@
 # Readme
 
-# 1. Creating this
+## 1. Creating this
 
 ```bash
 # github create repo with no readme
@@ -20,11 +20,22 @@ uvicorn main:app --reload
 python3 -m fastapi_template --name $NAME --api-type rest --db none --ci github --routers --quiet
 ```
 
-# 2. Containerizing
+## 2. Containerizing
 
+### Dev with reload
+
+```bash
 docker build -t rz-fastapp:1.0 . -f docker/DevDockerfile
 docker run -p 8000:8000 --name rz-fastapp rz-fastapp:1.0
 docker exec -it rz-fastapp /bin/bash
+```
+
+### Dev with mount
+
+```bash
+docker build -t rz-fastapp:1.1 . -f docker/MountDockerfile
+docker run -it --rm -p 8000:8000 --name rz-fastapp -v $(pwd):/app rz-fastapp:1.1
+```
 
 # 3. Publishing
 
