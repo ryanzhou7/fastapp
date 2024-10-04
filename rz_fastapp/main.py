@@ -1,8 +1,21 @@
 from fastapi import FastAPI
 
-app = FastAPI()
+from rz_fastapp.web.api.health import router as health_router
 
+def get_app() -> FastAPI:
+    """
+    Get FastAPI application.
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+    This is the main constructor of an application.
+
+    :return: application.
+    """
+    return FastAPI(
+        title="t6",
+        docs_url="/api/docs",
+        redoc_url="/api/redoc",
+        openapi_url="/api/openapi.json",
+    )
+
+app = get_app()
+app.include_router(health_router)
