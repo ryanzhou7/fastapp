@@ -147,6 +147,21 @@ But you have to rebuild image every time you modify `poetry.lock` or `pyproject.
 docker-compose build
 ```
 
-# 3. Publishing
+10. Add dev tools
+
+- Copilot "How do I add black, the python dev formatting library, to this project given best practices?"
+- DON't add via adding to the `pyproject.toml` directly
+  pyproject.toml changed significantly since poetry.lock was last generated. Run `poetry lock [--no-update]` to fix the lock file.
+
+```bash
+poetry add --dev black
+poetry install
+poetry run black .
+```
+
+- git log
+- git show commit1..commit2 > diff.log
+- Based on this git show commit1..commit2 tell a summarize of this commit did.
+- Based on this git show commit1..commit2, output step by step instructions that a beginner learning fastapi would understand to get to this commit.
 
 - [publishing-docker-images](https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images)

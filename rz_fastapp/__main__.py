@@ -1,6 +1,7 @@
 import uvicorn
 from rz_fastapp.settings import settings
 
+
 def main() -> None:
     """Entrypoint of the application."""
     uvicorn.run(
@@ -11,6 +12,7 @@ def main() -> None:
         reload=settings.reload,
         factory=True,
     )
+
 
 if __name__ == "__main__":
     main()

@@ -2,6 +2,7 @@ from fastapi.routing import APIRouter
 
 router = APIRouter()
 
+
 @router.get("/health")
 def health_check() -> None:
     """
@@ -9,5 +10,5 @@ def health_check() -> None:
 
     It returns 200 if the project is healthy.
     """
-    
+
     return {"message": "Hello world"}
