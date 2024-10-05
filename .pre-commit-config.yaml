@@ -1,0 +1,17 @@
+# This is the configuration file for pre-commit hooks.
+# It specifies which hooks to run before each commit.
+
+repos:
+  # Define the local repository containing the hooks.
+  - repo: local # Indicates that the hook is defined locally rather than fetched from a remote repository.
+
+    # List the hooks to run from this local repository.
+    hooks:
+      - id: black # The ID of the hook to run. This is a unique identifier for the hook.
+        name: Format with Black # A descriptive name for the hook.
+        entry: poetry run black # The command to run when the hook is triggered. In this case, it runs black using Poetry.
+        language: system # Specifies that the hook uses the system's language environment.
+        types: [python] # Specifies the file types that the hook should run on. In this case, it runs on Python files.
+        # Optionally, you can specify additional arguments for the hook.
+        # For example, to set the line length to 88 characters:
+        # args: [--line-length=88]

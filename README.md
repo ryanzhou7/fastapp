@@ -147,16 +147,34 @@ But you have to rebuild image every time you modify `poetry.lock` or `pyproject.
 docker-compose build
 ```
 
-10. Add dev tools
+## 10. Add dev tools
+
+### Black
 
 - Copilot "How do I add black, the python dev formatting library, to this project given best practices?"
 - DON't add via adding to the `pyproject.toml` directly
   pyproject.toml changed significantly since poetry.lock was last generated. Run `poetry lock [--no-update]` to fix the lock file.
 
 ```bash
-poetry add --dev black
+poetry add --group dev black
 poetry install
 poetry run black .
+```
+
+### Pre-commit hook
+
+Copilot "How do I add a pre-commit hook using .pre-commit-config.yaml that is configured to use a local repository?"
+
+```bash
+poetry add --group dev pre-commit
+touch .pre-commit-config.yaml
+poetry run pre-commit install
+
+# Run Pre-Commit Manually (Optional):
+# You can run the pre-commit hooks manually on all files to ensure they are formatted correctly:
+# this respects the .gitignore
+poetry run pre-commit run --all-files
+
 ```
 
 - git log
