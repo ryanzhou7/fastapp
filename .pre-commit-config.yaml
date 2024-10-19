@@ -14,3 +14,12 @@ repos:
         pass_filenames: false # Indicates that filenames should not be passed to the command. Ruff will determine which files to check.
         always_run: true # Ensures that the hook runs on every commit, regardless of the files changed.
         args: ["check", "--fix"] # Additional arguments for the command. In this case, it runs Ruff in check mode on the current directory and applies fixes.
+
+      - id: mypy
+        name: Check types with MyPy # A descriptive name for the hook.
+        entry: poetry run mypy # The command to run when the hook is triggered. It runs MyPy using Poetry.
+        language: system # Specifies that the hook uses the system's language environment.
+        types: [python] # Specifies the file types that the hook should run on.
+        pass_filenames: false
+        args:
+          - "rz_fastapp"

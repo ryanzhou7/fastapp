@@ -204,6 +204,41 @@ poetry run pre-commit install
 poetry run pre-commit run --all-files
 ```
 
+### Add a type checker
+
+- Read about [ruff vs mypy](https://docs.astral.sh/ruff/faq/#how-does-ruff-compare-to-mypy-or-pyright-or-pyre)
+- read about [mypy](https://mypy.readthedocs.io/en/stable/getting_started.html)
+- `poetry add --group dev mypy`
+- add to pyproject.toml
+
+```toml
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+strict = true
+```
+
+- `poetry run mypy rz_fastapp`
+  - manually run
+- error that would be detected
+
+```python
+@router.get("/health")
+def health_check() -> None:
+    return {"message": "Hello world"}
+```
+
+- To add to pre-commit, add to pyproject.toml
+
+```toml
+      - id: mypy
+        name: Check types with MyPy # A descriptive name for the hook.
+        entry: poetry run mypy # The command to run when the hook is triggered. It runs MyPy using Poetry.
+        language: system # Specifies that the hook uses the system's language environment.
+        types: [python] # Specifies the file types that the hook should run on.
+        args: ["rz_fastapp", "--ignore-missing-imports"] # Additional arguments for MyPy.
+```
+
 ## Appendix
 
 - git log

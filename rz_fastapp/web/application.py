@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from rz_fastapp.web.api.health import router as health_router
+from rz_fastapp.web.api.health_check import router as health_router
 
 
 def get_app() -> FastAPI:
