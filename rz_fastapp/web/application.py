@@ -4,8 +4,7 @@ from rz_fastapp.web.api.health import router as health_router
 
 
 def get_app() -> FastAPI:
-    """
-    Get FastAPI application.
+    """Get FastAPI application.
 
     This is the main constructor of an application.
     :return: application.

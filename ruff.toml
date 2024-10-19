@@ -1,0 +1,162 @@
+[lint]
+select = [
+    "E",   # Error: General errors that do not fall into other categories.
+           # Example: SyntaxError, IndentationError, etc.
+           # Example code:
+           # def foo():
+           # print("Hello, World!")  # IndentationError
+
+    "F",   # Pyflakes: Checks for various errors like undefined names, unused imports, etc.
+           # Example: Undefined name, unused import.
+           # Example code:
+           # import os  # Unused import
+           # print(x)  # Undefined name 'x'
+
+    "W",   # Pycodestyle: Enforces PEP 8 style guide for Python code.
+           # Example: Line too long, missing whitespace around operator.
+           # Example code:
+           # a=1  # Missing whitespace around operator
+           # print("This is a very long line that exceeds the maximum line length limit set by PEP 8.")  # Line too long
+
+    "C90", # McCabe complexity: Checks for cyclomatic complexity in code.
+           # Example: Function with high cyclomatic complexity.
+           # Example code:
+           # def complex_function(x):
+           #     if x > 0:
+           #         if x > 1:
+           #             if x > 2:
+           #                 return x
+           #     return -x  # High cyclomatic complexity
+
+    "I",   # Isort: Sorts imports alphabetically and by type (standard library, third-party, local).
+           # Example: Unsorted imports.
+           # Example code:
+           # import b
+           # import a  # Imports should be sorted alphabetically
+
+    "N",   # pep8-naming: Enforces PEP 8 naming conventions.
+           # Example: Invalid function name, class name.
+           # Example code:
+           # def MyFunction():  # Function names should be lowercase with words separated by underscores
+           # class myClass:  # Class names should use CamelCase
+
+    "D",   # Pydocstyle: Checks for docstring conventions.
+           # Example: Missing docstring, incorrect docstring style.
+           # Example code:
+           # def foo():
+           #     pass  # Missing docstring
+
+    "ANN", # Pytype annotations: Checks for type annotations.
+           # Example: Missing type annotations.
+           # Example code:
+           # def foo(x):  # Missing type annotation for parameter 'x'
+           #     return x
+
+    "S",   # Bandit: Security-oriented static analysis tool.
+           # Example: Use of insecure functions.
+           # Example code:
+           # import subprocess
+           # subprocess.run("ls")  # Use of insecure function 'subprocess.run'
+
+    "B",   # Bugbear: Finds likely bugs and design problems in your program.
+           # Example: Mutable default argument.
+           # Example code:
+           # def foo(x=[]):  # Mutable default argument
+           #     x.append(1)
+           #     return x
+
+    "COM", # Commas: Checks for trailing commas in sequences.
+           # Example: Missing trailing comma.
+           # Example code:
+           # my_list = [
+           #     1,
+           #     2  # Missing trailing comma
+           # ]
+
+    "C4",  # Comprehensions: Checks for comprehensions and generator expressions.
+           # Example: Unnecessary list comprehension.
+           # Example code:
+           # my_list = [x for x in range(10)]  # Unnecessary list comprehension
+
+    "ISC", # Implicit string concat: Checks for implicit string concatenation.
+           # Example: Implicit string concatenation.
+           # Example code:
+           # my_string = "Hello, " "World!"  # Implicit string concatenation
+
+    "PIE", # Unnecessary code: Checks for unnecessary code.
+           # Example: Unnecessary pass statement.
+           # Example code:
+           # def foo():
+           #     pass  # Unnecessary pass statement
+
+    "T20", # Catch prints: Checks for print statements.
+           # Example: Use of print statement.
+           # Example code:
+           # print("Hello, World!")  # Use of print statement
+
+    "PYI", # Validate pyi files: Checks for issues in .pyi files.
+           # Example: Incorrect type annotation in .pyi file.
+           # Example code:
+           # def foo(x: int) -> str:  # Incorrect type annotation
+           #     return x
+
+    "Q",   # Checks for quotes: Enforces consistent use of quotes.
+           # Example: Inconsistent use of quotes.
+           # Example code:
+           # my_string = 'Hello, World!'  # Should use double quotes
+
+    "RSE", # Checks raise statements: Checks for issues in raise statements.
+           # Example: Raising a string instead of an exception.
+           # Example code:
+           # raise "Error"  # Should raise an exception instance
+
+    "RET", # Checks return statements: Checks for issues in return statements.
+           # Example: Inconsistent return statements.
+           # Example code:
+           # def foo(x):
+           #     if x > 0:
+           #         return x
+           #     return  # Inconsistent return statements
+
+    "SLF", # Self checks: Checks for issues with the use of 'self'.
+           # Example: Missing 'self' in method definition.
+           # Example code:
+           # class MyClass:
+           #     def my_method():  # Missing 'self' parameter
+           #         pass
+
+    "SIM", # Simplificator: Suggests simplifications for complex code.
+           # Example: Unnecessary use of lambda.
+           # Example code:
+           # my_func = lambda x: x + 1  # Should use a regular function
+
+    "PTH", # Pathlib checks: Encourages the use of pathlib for file system paths.
+           # Example: Use of os.path instead of pathlib.
+           # Example code:
+           # import os
+           # os.path.join("a", "b")  # Should use pathlib.Path
+
+    "ERA", # Checks for commented out code: Detects commented out code.
+           # Example: Commented out code.
+           # Example code:
+           # # def foo():
+           # #     pass  # Commented out code
+
+    "PL",  # PyLint checks: Enforces PyLint rules.
+           # Example: Various PyLint rules.
+           # Example code:
+           # def foo(x):  # Missing type annotation
+           #     return x
+
+    "RUF", # Specific to Ruff checks: Enforces Ruff-specific rules.
+           # Example: Various Ruff-specific rules.
+           # Example code:
+           # def foo(x):  # Missing type annotation
+           #     return x
+]
+ignore = [
+  "D100",
+  "D104",
+  "S104",
+  "D401",
+]

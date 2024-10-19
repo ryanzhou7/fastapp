@@ -2,8 +2,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    """
-    Application settings.
+    """Application settings.
 
     These parameters can be configured
     with environment variables.

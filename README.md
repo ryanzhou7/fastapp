@@ -149,42 +149,49 @@ docker-compose build
 
 ## 10. Add dev tools
 
-### Black
+### Add ruff as a linter / formatter
 
-- Copilot: "How do I add black, the python dev formatting library, to this project given best practices?"
-- DON't add via adding to the `pyproject.toml` directly
-  pyproject.toml changed significantly since poetry.lock was last generated. Run `poetry lock [--no-update]` to fix the lock file.
+- https://docs.astral.sh/ruff/editors/setup/
+  - Just install the vscode extension
+- `poetry add --group dev ruff`
+- See ruff [rules](https://docs.astral.sh/ruff/rules/) you can turn on, note the ones that can auto fix
+- Add this to ruff.toml though it can also go in pyproject.toml
 
-```bash
-poetry add --group dev black
-poetry install
+```toml
+[lint]
+select = [
+    "I", # isort, auto sorts imports
+]
 ```
 
-- Test by purposely formatting poorly, like `settings.py`
+To see this work, update your code like
 
 ```python
-    # before
-    model_config = \
-    SettingsConfigDict(
-        env_file=".env",
-        env_file_encoding="utf-8",
-    )
+from rz_fastapp.web.api.health import router as health_router
+from fastapi import FastAPI
 ```
 
-`poetry run black .`
+- `poetry run ruff check`
+  - shows errors
+- `poetry run ruff check --fix`
+  - will auto fix
+- Now just add the rest in the next commit, read through the examples
+- Now turn off specific rules
 
-```python
-    # after running
-    model_config = \
-    SettingsConfigDict(
-        env_file=".env",
-        env_file_encoding="utf-8",
-    )
+```toml
+[lint]
+# select = [...] selection
+ignore = [
+  "D100",
+  "D104",
+  "S104",
+  "D401",
+]
 ```
 
 ### Pre-commit hook
 
-Copilot "How do I add a pre-commit hook using .pre-commit-config.yaml that is configured to use a local repository?"
+Now we want to make ruff run prior to every commit
 
 ```bash
 poetry add --group dev pre-commit
@@ -195,34 +202,7 @@ poetry run pre-commit install
 # You can run the pre-commit hooks manually on all files to ensure they are formatted correctly:
 # this respects the .gitignore
 poetry run pre-commit run --all-files
-
 ```
-
-### Add
-
-```python
-from fastapi import FastAPI # import 1
-from rz_fastapp.web.api.health import router as health_router # import 2
-```
-
-which should come first? Import 1 or 2? Let black decide and use isort to automate it.
-
-```bash
-poetry add --group dev isort
-```
-
-- add to pyproject.toml
-
-```toml
-[tool.isort]
-profile = "black"
-line_length = 88
-known_third_party = ["fastapi"]
-```
-
-- tells isort to use the black profile
-- `poetry run isort .`
-  - runs it
 
 ## Appendix
 
