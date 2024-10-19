@@ -151,7 +151,7 @@ docker-compose build
 
 ### Black
 
-- Copilot "How do I add black, the python dev formatting library, to this project given best practices?"
+- Copilot: "How do I add black, the python dev formatting library, to this project given best practices?"
 - DON't add via adding to the `pyproject.toml` directly
   pyproject.toml changed significantly since poetry.lock was last generated. Run `poetry lock [--no-update]` to fix the lock file.
 
@@ -197,6 +197,32 @@ poetry run pre-commit install
 poetry run pre-commit run --all-files
 
 ```
+
+### Add
+
+```python
+from fastapi import FastAPI # import 1
+from rz_fastapp.web.api.health import router as health_router # import 2
+```
+
+which should come first? Import 1 or 2? Let black decide and use isort to automate it.
+
+```bash
+poetry add --group dev isort
+```
+
+- add to pyproject.toml
+
+```toml
+[tool.isort]
+profile = "black"
+line_length = 88
+known_third_party = ["fastapi"]
+```
+
+- tells isort to use the black profile
+- `poetry run isort .`
+  - runs it
 
 ## Appendix
 

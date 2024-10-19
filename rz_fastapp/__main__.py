@@ -1,4 +1,5 @@
 import uvicorn
+
 from rz_fastapp.settings import settings
 
 
