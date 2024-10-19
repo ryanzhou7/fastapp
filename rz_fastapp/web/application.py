@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from rz_fastapp.web.api.health_check import router as health_router
+from rz_fastapp.web.api.lifespan import lifespan_setup
 
 
 def get_app() -> FastAPI:
@@ -10,6 +11,7 @@ def get_app() -> FastAPI:
     :return: application.
     """
     app = FastAPI(
+        lifespan=lifespan_setup,
         title="fastapp",
         docs_url="/api/docs",
         redoc_url="/api/redoc",

@@ -1,6 +1,6 @@
 # Readme
 
-## 1. Creating this
+## 1. Project creation
 
 ```bash
 # github create repo with no readme
@@ -20,7 +20,14 @@ uvicorn main:app --reload
 python3 -m fastapi_template --name $NAME --api-type rest --db none --ci github --routers --quiet
 ```
 
-## 2. Containerizing
+## 2. Dockerizing
+
+This is another way to run the app, note this is an installation separate from poetry
+
+```bash
+poetry new rz_fastapp
+poetry add "fastapi[standard]"
+```
 
 ### Dev with reload
 
@@ -132,7 +139,7 @@ services:
 docker-compose up --build
 ```
 
-If you want to develop in docker with autoreload and exposed ports add `-f deploy/docker-compose.dev.yml` to your docker command.
+If you want to develop in docker with auto-reload and exposed ports add `-f deploy/docker-compose.dev.yml` to your docker command.
 Like this:
 
 ```bash
@@ -189,6 +196,10 @@ ignore = [
 ]
 ```
 
+- Also see how you can get rid of these warnings
+  > warning: `one-blank-line-before-class` (D203) and `no-blank-line-before-class` (D211) are incompatible. Ignoring `one-blank-line-before-class`.
+  > warning: `multi-line-summary-first-line` (D212) and `multi-line-summary-second-line` (D213) are incompatible. Ignoring `multi-line-summary-second-line`.
+
 ### Pre-commit hook
 
 Now we want to make ruff run prior to every commit
@@ -220,7 +231,7 @@ strict = true
 
 - `poetry run mypy rz_fastapp`
   - manually run
-- error that would be detected
+- error that would be detected below
 
 ```python
 @router.get("/health")
@@ -239,15 +250,69 @@ def health_check() -> None:
         args: ["rz_fastapp", "--ignore-missing-imports"] # Additional arguments for MyPy.
 ```
 
+## 11. Add a database
+
+```bash
+# How we run the app with docker compose
+docker-compose -f docker-compose.yml -f deploy/docker-compose.dev.yml --project-directory . up --build
+
+# running with poetry, stick to this way for now
+poetry run python -m rz_fastapp
+
+#Don't forget to add to .env
+#reload=True
+```
+
+Summary
+
+1. Add code block run once
+
+### 1. Add action to run on app startup
+
+- [Docs on lifespan](https://fastapi.tiangolo.com/advanced/events/#lifespan)
+
+- `touch web/api/lifespan.py`
+- Add 👇
+
+```python
+from contextlib import asynccontextmanager
+from typing import AsyncGenerator
+@asynccontextmanager
+async def lifespan_setup(
+    app: FastAPI,
+) -> AsyncGenerator[None, None]:
+    """
+    Actions to run on application startup.
+
+    This function uses fastAPI app to store data
+    in the state, such as db_engine.
+
+    :param app: the fastAPI application.
+    :return: function that actually performs actions.
+    """
+
+    print("This and code above runs prior to app start")
+    yield
+    print("This and code below runs after app finished execution")
+```
+
+- Edit application.py
+
+```python
+from rz_fastapp.web.api.lifespan import lifespan_setup
+def get_app() -> FastAPI:
+    # ...
+    app = FastAPI(
+        lifespan=lifespan_setup,
+        # ...
+```
+
 ## Appendix
 
+- CP
 - git log
 - git show commit1..commit2 > diff.log
 - Based on this git show commit1..commit2 tell a summarize of this commit did.
 - Based on this git show commit1..commit2, output step by step instructions that a beginner learning fastapi would understand to get to this commit.
 
 - [publishing-docker-images](https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images)
-
-```
-
-```
