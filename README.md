@@ -158,7 +158,28 @@ docker-compose build
 ```bash
 poetry add --group dev black
 poetry install
-poetry run black .
+```
+
+- Test by purposely formatting poorly, like `settings.py`
+
+```python
+    # before
+    model_config = \
+    SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+    )
+```
+
+`poetry run black .`
+
+```python
+    # after running
+    model_config = \
+    SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+    )
 ```
 
 ### Pre-commit hook
@@ -177,9 +198,15 @@ poetry run pre-commit run --all-files
 
 ```
 
+## Appendix
+
 - git log
 - git show commit1..commit2 > diff.log
 - Based on this git show commit1..commit2 tell a summarize of this commit did.
 - Based on this git show commit1..commit2, output step by step instructions that a beginner learning fastapi would understand to get to this commit.
 
 - [publishing-docker-images](https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images)
+
+```
+
+```
