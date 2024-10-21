@@ -2,6 +2,7 @@ from fastapi import FastAPI
 
 from rz_fastapp.web.api.health_check import router as health_router
 from rz_fastapp.web.api.lifespan import lifespan_setup
+from rz_fastapp.web.api.table import router as table_router
 
 
 def get_app() -> FastAPI:
@@ -18,4 +19,5 @@ def get_app() -> FastAPI:
         openapi_url="/api/openapi.json",
     )
     app.include_router(health_router)
+    app.include_router(table_router)
     return app

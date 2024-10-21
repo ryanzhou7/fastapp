@@ -307,7 +307,69 @@ def get_app() -> FastAPI:
         # ...
 ```
 
+### 2. Add sqlite3
+
+`poetry add aiosqlite`
+
+> aiosqlite is an asynchronous wrapper around the SQLite database library for Python. It allows you to perform SQLite database operations using Python's asyncio framework
+
+Add to /lifespan.py
+
+```python
+import aiosqlite
+    # ...
+    app.state.db = await aiosqlite.connect("sqlite.db")
+    logger.error("This and code above runs prior to app start")
+    yield
+     # Close the database connection
+    await app.state.db.close()
+```
+
+New file table.py
+
+```python
+from typing import Iterable
+
+from aiosqlite import Connection, Row
+from fastapi import APIRouter, Request
+
+router = APIRouter()
+
+@router.get("/tables")
+async def tables(request: Request) -> dict[str, str]:
+    """Retrieve the list of table names from the SQLite database.
+
+    Args:
+        request (Request): The request object containing the database connection.
+
+    Returns:
+        dict[str, str]: A dictionary with the list of table names.
+
+    """
+    db: Connection = request.app.state.db
+    statement: str = "SELECT name FROM sqlite_master WHERE type='table';"
+    async with db.execute(statement) as cursor:
+        result = await cursor.fetchall()
+    return {"tables": result}
+```
+
+Edit application.py
+
+```python
+from rz_fastapp.web.api.table import router as table_router
+# ...
+    # ...
+    app.include_router(table_router)
+```
+
+- `curl -X GET 'http://localhost:8000/tables'`
+- Response: `{"tables":[]}`
+
+Add `sqlite.db` to .gitignore as new db file is created
+
 ## Appendix
+
+- [Dependency injection](https://fastapi.tiangolo.com/tutorial/dependencies/#first-steps)
 
 - CP
 - git log
@@ -316,3 +378,7 @@ def get_app() -> FastAPI:
 - Based on this git show commit1..commit2, output step by step instructions that a beginner learning fastapi would understand to get to this commit.
 
 - [publishing-docker-images](https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images)
+
+```
+
+```
