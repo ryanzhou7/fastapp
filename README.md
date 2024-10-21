@@ -219,6 +219,7 @@ poetry run pre-commit run --all-files
 
 - Read about [ruff vs mypy](https://docs.astral.sh/ruff/faq/#how-does-ruff-compare-to-mypy-or-pyright-or-pyre)
 - read about [mypy](https://mypy.readthedocs.io/en/stable/getting_started.html)
+- Install [mypy vscode extension](https://marketplace.visualstudio.com/items?itemName=ms-python.mypy-type-checker)
 - `poetry add --group dev mypy`
 - add to pyproject.toml
 
@@ -328,15 +329,15 @@ import aiosqlite
 New file table.py
 
 ```python
-from typing import Iterable
+from typing import Any
 
-from aiosqlite import Connection, Row
+from aiosqlite import Connection
 from fastapi import APIRouter, Request
 
 router = APIRouter()
 
 @router.get("/tables")
-async def tables(request: Request) -> dict[str, str]:
+async def tables(request: Request) -> dict[str, list[Any]]:
     """Retrieve the list of table names from the SQLite database.
 
     Args:
@@ -350,7 +351,8 @@ async def tables(request: Request) -> dict[str, str]:
     statement: str = "SELECT name FROM sqlite_master WHERE type='table';"
     async with db.execute(statement) as cursor:
         result = await cursor.fetchall()
-    return {"tables": result}
+    table_names = [row[0] for row in result]
+    return {"tables": table_names}
 ```
 
 Edit application.py

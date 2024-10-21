@@ -1,12 +1,12 @@
-from typing import Iterable
+from typing import Any
 
-from aiosqlite import Connection, Row
+from aiosqlite import Connection
 from fastapi import APIRouter, Request
 
 router = APIRouter()
 
 @router.get("/tables")
-async def tables(request: Request) -> dict[str, Iterable[Row]]:
+async def tables(request: Request) -> dict[str, list[Any]]:
     """Retrieve the list of table names from the SQLite database.
 
     Args:
@@ -20,4 +20,5 @@ async def tables(request: Request) -> dict[str, Iterable[Row]]:
     statement: str = "SELECT name FROM sqlite_master WHERE type='table';"
     async with db.execute(statement) as cursor:
         result = await cursor.fetchall()
-    return {"tables": result}
+    table_names = [row[0] for row in result]
+    return {"tables": table_names}
