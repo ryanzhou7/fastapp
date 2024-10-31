@@ -13,6 +13,7 @@ git push -u origin main
 cd ..
 mv ./fastapp/.git ./.git
 python3 -m fastapi_template --name fastapp --api-type rest --db none --orm none --ci none --routers --force --quiet
+rm -rf ./fastapp/.git
 mv ./.git fastapp/.git
 cd fastapp
 git add -A
