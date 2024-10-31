@@ -4,14 +4,14 @@ cp -r ./.git ../.git
 cd ..
 
 while true; do
-  echo "Enter a command to execute (or type 'exit' to quit): "
-  read user_cmd
-  if [[ "$user_cmd" == "exit" ]]; then
+  echo "Enter flags to execute (or type 'exit' to quit): "
+  read flags
+  if [[ "$flags" == "exit" ]]; then
       echo "Exiting..."
       break
   fi
-  echo "Executing: $user_cmd"
-  eval python3 -m fastapi_template --name fastapp $user_cmd
+  echo "Executing: $flags"
+  eval python3 -m fastapi_template --name fastapp $flags
   break
 done
 
@@ -19,13 +19,13 @@ rm -rf ./fastapp/.git
 cp -r ./.git ./fastapp/.git
 rm -rf ./.git
 cd fastapp
-git add -A
+# git add -A
 
-while true; do
-  echo "Enter git commit "
-  read commit_message
-  break
-done
+# while true; do
+#   echo "Enter git commit "
+#   read commit_message
+#   break
+# done
 
-git commit -m "$commit_message"
-git push
+# git commit -m "$commit_message"
+# git push
