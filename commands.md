@@ -20,4 +20,7 @@ python3 -m fastapi_template --name fastapp --api-type rest --db sqlite --orm sql
 
 # 4 dummy model
 python3 -m fastapi_template --name fastapp --api-type rest --db sqlite --orm sqlalchemy --ci none --routers --dummy --force --quiet
+
+# 5 migrations
+python3 -m fastapi_template --name fastapp --api-type rest --db sqlite --orm sqlalchemy --ci none --routers --dummy --migrations --force --quiet
 ```

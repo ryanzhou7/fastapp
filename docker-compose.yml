@@ -13,6 +13,15 @@ services:
     volumes:
       - fastapp-db-data:/db_data/
 
+  migrator:
+    image: fastapp:${FASTAPP_VERSION:-latest}
+    restart: "no"
+    command: alembic upgrade head
+    environment:
+      FASTAPP_DB_FILE: /db_data/db.sqlite3
+    volumes:
+      - fastapp-db-data:/db_data/
+
 
 
 volumes:
