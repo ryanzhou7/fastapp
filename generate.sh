@@ -10,7 +10,7 @@ while true; do
       echo "Exiting..."
       break
   fi
-  echo "Executing: $flags"
+  echo "Flags are: $flags"
   eval python3 -m fastapi_template --name fastapp $flags
   break
 done
@@ -19,13 +19,13 @@ rm -rf ./fastapp/.git
 cp -r ./.git ./fastapp/.git
 rm -rf ./.git
 cd fastapp
-# git add -A
+git add -A
 
-# while true; do
-#   echo "Enter git commit "
-#   read commit_message
-#   break
-# done
+while true; do
+  echo "Enter git commit "
+  read commit_message
+  break
+done
 
-# git commit -m "$commit_message"
-# git push
+git commit -m "$commit_message"
+git push
