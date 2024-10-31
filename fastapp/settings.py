@@ -39,7 +39,11 @@ class Settings(BaseSettings):
 
     log_level: LogLevel = LogLevel.INFO
     # Variables for the database
-    db_file: Path = TEMP_DIR / "db.sqlite3"
+    db_host: str = "localhost"
+    db_port: int = 5432
+    db_user: str = "fastapp"
+    db_pass: str = "fastapp"
+    db_base: str = "admin"
     db_echo: bool = False
 
     @property
@@ -49,7 +53,14 @@ class Settings(BaseSettings):
 
         :return: database URL.
         """
-        return URL.build(scheme="sqlite+aiosqlite", path=f"///{self.db_file}")
+        return URL.build(
+            scheme="postgresql+asyncpg",
+            host=self.db_host,
+            port=self.db_port,
+            user=self.db_user,
+            password=self.db_pass,
+            path=f"/{self.db_base}",
+        )
 
     model_config = SettingsConfigDict(
         env_file=".env",

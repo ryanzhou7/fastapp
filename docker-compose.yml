@@ -7,20 +7,46 @@ services:
     restart: always
     env_file:
       - .env
+    depends_on:
+      db:
+        condition: service_healthy
     environment:
       FASTAPP_HOST: 0.0.0.0
-      FASTAPP_DB_FILE: /db_data/db.sqlite3
+      FASTAPP_DB_HOST: fastapp-db
+      FASTAPP_DB_PORT: 5432
+      FASTAPP_DB_USER: fastapp
+      FASTAPP_DB_PASS: fastapp
+      FASTAPP_DB_BASE: fastapp
+
+  db:
+    image: postgres:16.3-bullseye
+    hostname: fastapp-db
+    environment:
+      POSTGRES_PASSWORD: "fastapp"
+      POSTGRES_USER: "fastapp"
+      POSTGRES_DB: "fastapp"
     volumes:
-      - fastapp-db-data:/db_data/
+      - fastapp-db-data:/var/lib/postgresql/data
+    restart: always
+    healthcheck:
+      test: pg_isready -U fastapp
+      interval: 2s
+      timeout: 3s
+      retries: 40
 
   migrator:
     image: fastapp:${FASTAPP_VERSION:-latest}
     restart: "no"
     command: alembic upgrade head
     environment:
-      FASTAPP_DB_FILE: /db_data/db.sqlite3
-    volumes:
-      - fastapp-db-data:/db_data/
+      FASTAPP_DB_HOST: fastapp-db
+      FASTAPP_DB_PORT: 5432
+      FASTAPP_DB_USER: fastapp
+      FASTAPP_DB_PASS: fastapp
+      FASTAPP_DB_BASE: fastapp
+    depends_on:
+      db:
+        condition: service_healthy
 
 
 
