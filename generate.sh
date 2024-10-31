@@ -4,7 +4,7 @@ cp -r ./.git ../.git
 cd ..
 
 while true; do
-  echo "Enter a command to execute (or type 'exit' to quit): " user_cmd
+  echo "Enter a command to execute (or type 'exit' to quit): "
   read user_cmd
   if [[ "$user_cmd" == "exit" ]]; then
       echo "Exiting..."
@@ -22,7 +22,7 @@ cd fastapp
 git add -A
 
 while true; do
-  echo "Enter git commit " commit_message
+  echo "Enter git commit "
   read commit_message
   break
 done
