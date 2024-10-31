@@ -29,4 +29,7 @@ python3 -m fastapi_template --name fastapp --api-type rest --db postgresql --orm
 
 # 7 gunicorn
 python3 -m fastapi_template --name fastapp --api-type rest --db postgresql --orm sqlalchemy --ci none --routers --dummy --migrations --gunicorn --force --quiet
+
+# 8 ci github
+python3 -m fastapi_template --name fastapp --api-type rest --db postgresql --orm sqlalchemy --ci github --routers --dummy --migrations --gunicorn --force --quiet
 ```

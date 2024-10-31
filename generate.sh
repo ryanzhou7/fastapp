@@ -11,7 +11,7 @@ while true; do
       break
   fi
   echo "Executing: $user_cmd"
-  eval $user_cmd
+  eval python3 -m fastapi_template --name fastapp $user_cmd
   break
 done
 
