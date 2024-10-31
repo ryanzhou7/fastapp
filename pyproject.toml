@@ -18,6 +18,8 @@ pydantic = "^2"
 pydantic-settings = "^2"
 yarl = "^1"
 ujson = "^5.10.0"
+SQLAlchemy = {version = "^2.0.31", extras = ["asyncio"]}
+aiosqlite = "^0.20.0"
 httptools = "^0.6.1"
 pymongo = "^4.8.0"
 
@@ -109,6 +111,7 @@ lint.ignore = [
     "D106",    # Missing docstring in public nested class
 ]
 exclude = [
+    "fastapp/db/migrations",
     ".venv/"
 ]
 lint.mccabe = { max-complexity = 10 }
@@ -142,7 +145,7 @@ enable_kafka = "None"
 enable_loguru = "None"
 traefik_labels = "None"
 add_dummy = "None"
-orm = "none"
+orm = "sqlalchemy"
 self_hosted_swagger = "None"
 prometheus_enabled = "None"
 sentry_enabled = "None"
