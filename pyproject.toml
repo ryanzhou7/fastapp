@@ -59,7 +59,7 @@ filterwarnings = [
 ]
 env = [
     "FASTAPP_ENVIRONMENT=pytest",
-    "FASTAPP_DB_BASE=fastapp_test",
+    "FASTAPP_DB_FILE=test_db.sqlite3",
 ]
 
 [tool.ruff]
